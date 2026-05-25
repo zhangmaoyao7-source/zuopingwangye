@@ -200,15 +200,40 @@ const projectData = {
   otherworks: {
     label: "OTHER WORKS / GROWING COLLECTION",
     title: "其它作品合集",
-    text: "这里作为后续作品的集合入口，用来收纳还没有单独拆成重点项目的视觉作品、页面设计、海报物料、IP 小稿和阶段性练习。之后你每上传一组新作品，都可以继续追加到这个合集里，点开后按不同作品分组查看。",
-    tags: ["其它作品", "持续补充", "视觉合集", "阶段归档"],
+    text: "这里作为后续作品的集合入口，用来收纳还没有单独拆成重点项目的品牌文创、页面视觉、海报物料、IP 小稿和阶段性练习。每组作品会按主题归类，方便持续补充和查看。",
+    tags: ["其它作品", "品牌文创", "持续补充", "分组查看"],
     details: [
       ["定位", "补充作品集合入口"],
-      ["内容", "海报、页面、IP 小稿、视觉实验等"],
-      ["更新", "后续上传后继续追加"],
+      ["当前分类", "花王碧柔文创周边 / 作品集网页界面"],
+      ["更新方式", "后续上传后继续按主题追加"],
       ["展示", "按不同作品分组查看"],
     ],
+    collections: [
+      {
+        category: "品牌文创周边",
+        title: "花王碧柔文创周边设计",
+        text: "本系列文创周边为花王碧柔打造品牌 IP 衍生设计。以碧柔“硬核防晒、守护肌肤自信”的品牌理念为核心，融合夏日、海洋、元气等年轻化元素，构建覆盖日常、户外、礼品全场景的文创矩阵，强化品牌年轻态形象，并传递“保持自信，身心放松”的品牌态度。",
+        tags: ["花王碧柔", "防晒品牌", "IP 衍生", "夏日海洋", "礼品周边"],
+        images: [
+          ["assets/biore-creative-01-deploy.jpg", "户外大礼包、包包系列、香薰水杯与文创雪糕等周边矩阵"],
+          ["assets/biore-creative-02-deploy.jpg", "手持风扇、折叠圆扇补光板、小礼品与礼盒套组延展"],
+        ],
+      },
+      {
+        category: "网页 UI / 交互原型",
+        title: "个人作品集网页界面",
+        text: "围绕个人作品展示、信息架构、动效交互和求职投递场景搭建的网页 UI 作品，用于承载重点项目、能力标签与联系入口。",
+        tags: ["网页 UI", "作品集", "交互原型", "响应式页面"],
+        images: [
+          ["assets/portfolio-preview-deploy.jpg", "作品集网页视觉 / 页面结构与交互氛围"],
+          ["assets/hero-profile-banner-deploy.jpg", "个人介绍视觉 / 横幅风格与人物表达"],
+          ["assets/portfolio-hero-tools-deploy.jpg", "工具能力展示 / 标签化视觉与辅助图形"],
+        ],
+      },
+    ],
     images: [
+      ["assets/biore-creative-01-deploy.jpg", "花王碧柔文创周边设计 / 户外与日常周边"],
+      ["assets/biore-creative-02-deploy.jpg", "花王碧柔文创周边设计 / 礼品与小物延展"],
       ["assets/portfolio-preview-deploy.jpg", "作品集网页视觉 / 页面结构与交互氛围"],
       ["assets/hero-profile-banner-deploy.jpg", "个人介绍视觉 / 横幅风格与人物表达"],
       ["assets/portfolio-hero-tools-deploy.jpg", "工具能力展示 / 标签化视觉与辅助图形"],
@@ -413,8 +438,7 @@ function openProject(projectId) {
     projectModalDetails.appendChild(detail);
   });
 
-  projectModalGallery.replaceChildren();
-  project.images.forEach(([src, caption]) => {
+  const renderGalleryFigure = ([src, caption], target) => {
     const figure = document.createElement("figure");
     const image = document.createElement("img");
     const figcaption = document.createElement("figcaption");
@@ -422,8 +446,43 @@ function openProject(projectId) {
     image.alt = caption;
     figcaption.textContent = caption;
     figure.append(image, figcaption);
-    projectModalGallery.appendChild(figure);
-  });
+    target.appendChild(figure);
+  };
+
+  projectModalGallery.replaceChildren();
+  if (project.collections?.length) {
+    project.collections.forEach((collection) => {
+      const section = document.createElement("section");
+      const header = document.createElement("div");
+      const category = document.createElement("span");
+      const title = document.createElement("h3");
+      const text = document.createElement("p");
+      const tags = document.createElement("div");
+      const grid = document.createElement("div");
+
+      section.className = "project-collection";
+      header.className = "project-collection-head";
+      tags.className = "project-collection-tags";
+      grid.className = "project-gallery-grid";
+
+      category.textContent = collection.category;
+      title.textContent = collection.title;
+      text.textContent = collection.text;
+
+      collection.tags?.forEach((tag) => {
+        const tagNode = document.createElement("span");
+        tagNode.textContent = tag;
+        tags.appendChild(tagNode);
+      });
+
+      collection.images.forEach((image) => renderGalleryFigure(image, grid));
+      header.append(category, title, text, tags);
+      section.append(header, grid);
+      projectModalGallery.appendChild(section);
+    });
+  } else {
+    project.images.forEach((image) => renderGalleryFigure(image, projectModalGallery));
+  }
 
   projectModal.scrollTop = 0;
   projectModal.classList.add("is-open");

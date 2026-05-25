@@ -2300,6 +2300,69 @@ body.modal-open {
   padding: 0 42px 42px;
 }
 
+.project-collection {
+  display: grid;
+  gap: 18px;
+  padding: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at 12% 10%, rgba(84, 244, 208, 0.12), transparent 16rem),
+    rgba(255, 255, 255, 0.045);
+}
+
+.project-collection-head {
+  display: grid;
+  gap: 12px;
+}
+
+.project-collection-head > span {
+  width: fit-content;
+  padding: 8px 13px;
+  border: 1px solid rgba(84, 244, 208, 0.28);
+  border-radius: 999px;
+  color: var(--mint);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.project-collection-head h3 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(24px, 3vw, 38px);
+  font-weight: 900;
+}
+
+.project-collection-head p {
+  max-width: 980px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.9;
+}
+
+.project-collection-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.project-collection-tags span {
+  padding: 7px 11px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.project-gallery-grid {
+  display: grid;
+  gap: 16px;
+}
+
 .project-gallery figure {
   overflow: hidden;
   margin: 0;
@@ -2767,6 +2830,11 @@ body.modal-open {
   .project-summary,
   .project-gallery {
     padding-inline: 18px;
+  }
+
+  .project-collection {
+    padding: 16px;
+    border-radius: 22px;
   }
 
   .project-summary {
