@@ -6,9 +6,16 @@ const filterButtons = document.querySelectorAll(".filter-btn");
 const workCards = document.querySelectorAll(".work-card, .featured-case");
 const projectCards = document.querySelectorAll(".work-card[data-project]");
 const skillTabs = document.querySelectorAll(".skill-tab");
+const skillFeatureButtons = document.querySelectorAll(".skill-feature");
+const skillControls = document.querySelectorAll(".skill-tab, .skill-feature");
+const skillShell = document.querySelector("[data-skill-shell]");
+const skillContent = document.querySelector(".skill-content");
 const skillTitle = document.querySelector("#skill-title");
 const skillText = document.querySelector("#skill-text");
 const skillMeter = document.querySelector("#skill-meter");
+const skillPercent = document.querySelector("#skill-percent");
+const skillRadarValue = document.querySelector("#skill-radar-value");
+const skillBadge = document.querySelector("#skill-badge");
 const canvas = document.querySelector("#spark-canvas");
 const ctx = canvas.getContext("2d");
 const projectModal = document.querySelector("#project-modal");
@@ -74,22 +81,38 @@ const skills = {
   brand: {
     title: "品牌视觉设计",
     text: "能够围绕品牌定位建立色彩、字体、图形、版式与传播物料体系，让视觉调性在海报、包装、周边与线上页面中保持统一。",
-    meter: "86%",
+    badge: "当前专精领域",
+    meter: "92%",
+    angle: "331deg",
+    accent: "#9b63ff",
+    rgb: "155, 99, 255",
   },
   ip: {
     title: "IP 形象设计",
     text: "能够从角色性格、造型比例、表情动作、故事场景和衍生物料出发，塑造有记忆点、可传播、可延展的品牌 IP 形象。",
     meter: "90%",
+    badge: "角色资产搭建",
+    angle: "324deg",
+    accent: "#ff74c8",
+    rgb: "255, 116, 200",
   },
   ecommerce: {
     title: "电商美工设计",
     text: "关注商品卖点提炼、详情页信息节奏、移动端阅读体验和转化路径，能够把产品功能、场景氛围与购买理由组织成完整页面。",
-    meter: "84%",
+    meter: "88%",
+    badge: "转化页面组织",
+    angle: "317deg",
+    accent: "#54f4d0",
+    rgb: "84, 244, 208",
   },
   video: {
     title: "视频剪辑",
     text: "能够进行素材整理、节奏剪辑、字幕包装、基础调色与短视频成片输出，适配品牌宣传、作品展示和社媒内容场景。",
-    meter: "78%",
+    meter: "82%",
+    badge: "动态内容表达",
+    angle: "295deg",
+    accent: "#6aa8ff",
+    rgb: "106, 168, 255",
   },
 };
 
@@ -381,15 +404,44 @@ projectCards.forEach((card) => {
   });
 });
 
-skillTabs.forEach((tab) => {
-  tab.addEventListener("click", () => {
-    const current = skills[tab.dataset.skill];
-    skillTabs.forEach((item) => item.classList.toggle("active", item === tab));
-    skillTitle.textContent = current.title;
-    skillText.textContent = current.text;
-    skillMeter.style.width = current.meter;
+function setActiveSkill(skillKey) {
+  const current = skills[skillKey] || skills.brand;
+
+  skillTabs.forEach((item) => {
+    const isActive = item.dataset.skill === skillKey;
+    item.classList.toggle("active", isActive);
+    item.setAttribute("aria-selected", isActive ? "true" : "false");
   });
+
+  skillFeatureButtons.forEach((item) => {
+    item.classList.toggle("is-active", item.dataset.skill === skillKey);
+  });
+
+  if (skillShell) {
+    skillShell.style.setProperty("--skill-accent", current.accent);
+    skillShell.style.setProperty("--skill-accent-rgb", current.rgb);
+    skillShell.style.setProperty("--skill-angle", current.angle);
+  }
+
+  if (skillTitle) skillTitle.textContent = current.title;
+  if (skillText) skillText.textContent = current.text;
+  if (skillMeter) skillMeter.style.width = current.meter;
+  if (skillPercent) skillPercent.textContent = current.meter;
+  if (skillRadarValue) skillRadarValue.textContent = current.meter;
+  if (skillBadge) skillBadge.textContent = current.badge;
+
+  if (skillContent) {
+    skillContent.classList.remove("is-switching");
+    void skillContent.offsetWidth;
+    skillContent.classList.add("is-switching");
+  }
+}
+
+skillControls.forEach((control) => {
+  control.addEventListener("click", () => setActiveSkill(control.dataset.skill));
 });
+
+setActiveSkill("brand");
 
 function getActiveProjectList() {
   const visibleIds = new Set(

@@ -449,21 +449,89 @@
     </section>
 
     <section class="section-block skill-section" id="skills">
-      <div class="section-title reveal">
-        <span>03 / SKILLS</span>
-        <h2>能力标签</h2>
-      </div>
-      <div class="skill-shell reveal">
-        <div class="skill-tabs" role="tablist" aria-label="技能分类">
-          <button class="skill-tab active" type="button" data-skill="brand">品牌视觉设计</button>
-          <button class="skill-tab" type="button" data-skill="ip">IP 形象设计</button>
-          <button class="skill-tab" type="button" data-skill="ecommerce">电商美工设计</button>
-          <button class="skill-tab" type="button" data-skill="video">视频剪辑</button>
+      <div class="skill-shell reveal" data-skill-shell>
+        <span class="skill-grid-line skill-grid-line-a" aria-hidden="true"></span>
+        <span class="skill-grid-line skill-grid-line-b" aria-hidden="true"></span>
+        <div class="skill-left">
+          <p class="skill-kicker">03 / SKILLS</p>
+          <h2>能力标签</h2>
+          <div class="skill-tabs" role="tablist" aria-label="技能分类">
+            <button class="skill-tab active" type="button" data-skill="brand" aria-selected="true">
+              <span class="skill-tab-icon icon-brand" aria-hidden="true"></span>
+              <span>品牌视觉设计</span>
+            </button>
+            <button class="skill-tab" type="button" data-skill="ip" aria-selected="false">
+              <span class="skill-tab-icon icon-ip" aria-hidden="true"></span>
+              <span>IP 形象设计</span>
+            </button>
+            <button class="skill-tab" type="button" data-skill="ecommerce" aria-selected="false">
+              <span class="skill-tab-icon icon-ecom" aria-hidden="true"></span>
+              <span>电商美工设计</span>
+            </button>
+            <button class="skill-tab" type="button" data-skill="video" aria-selected="false">
+              <span class="skill-tab-icon icon-video" aria-hidden="true"></span>
+              <span>视频剪辑</span>
+            </button>
+          </div>
+          <div class="skill-ticket" aria-hidden="true">
+            <i></i>
+            <span>DESIGN IS MAGIC</span>
+          </div>
         </div>
-        <div class="skill-content">
-          <h3 id="skill-title">品牌视觉设计</h3>
-          <p id="skill-text">能够围绕品牌定位建立色彩、字体、图形、版式与传播物料体系，让视觉调性在海报、包装、周边与线上页面中保持统一。</p>
-          <div class="skill-meter" aria-hidden="true"><span id="skill-meter"></span></div>
+        <div class="skill-stage">
+          <div class="skill-content">
+            <span class="skill-badge" id="skill-badge">当前专精领域</span>
+            <h3 id="skill-title">品牌视觉设计</h3>
+            <p id="skill-text">能够围绕品牌定位建立色彩、字体、图形、版式与传播物料体系，让视觉调性在海报、包装、周边与线上页面中保持统一。</p>
+            <div class="skill-score">
+              <span>技能指数</span>
+              <strong id="skill-percent">92%</strong>
+            </div>
+            <div class="skill-meter" aria-hidden="true"><span id="skill-meter"></span></div>
+          </div>
+          <div class="skill-avatar-card tilt-card" data-tilt aria-hidden="true">
+            <span class="skill-orbit skill-orbit-one"></span>
+            <span class="skill-orbit skill-orbit-two"></span>
+            <div class="skill-avatar">
+              <span class="avatar-bun avatar-bun-left"></span>
+              <span class="avatar-bun avatar-bun-right"></span>
+              <span class="avatar-goggle avatar-goggle-left"></span>
+              <span class="avatar-goggle avatar-goggle-right"></span>
+              <span class="avatar-face"></span>
+              <span class="avatar-body"></span>
+              <span class="avatar-hand"></span>
+            </div>
+            <span class="skill-ghost skill-ghost-one"></span>
+            <span class="skill-ghost skill-ghost-two"></span>
+            <span class="skill-pod skill-pod-brand">BRAND SYSTEM</span>
+            <span class="skill-pod skill-pod-visual">VISUAL UNIFORMITY</span>
+          </div>
+          <div class="skill-radar" aria-hidden="true">
+            <strong id="skill-radar-value">92%</strong>
+            <span>SKILL INDEX</span>
+          </div>
+        </div>
+        <div class="skill-feature-row" aria-label="能力亮点">
+          <button class="skill-feature is-active" type="button" data-skill="brand">
+            <span class="skill-feature-icon feature-strategy" aria-hidden="true"></span>
+            <strong>品牌策略</strong>
+            <small>品牌定位与视觉语言</small>
+          </button>
+          <button class="skill-feature" type="button" data-skill="ip">
+            <span class="skill-feature-icon feature-character" aria-hidden="true"></span>
+            <strong>角色塑造</strong>
+            <small>性格、造型与延展</small>
+          </button>
+          <button class="skill-feature" type="button" data-skill="ecommerce">
+            <span class="skill-feature-icon feature-layout" aria-hidden="true"></span>
+            <strong>转化页面</strong>
+            <small>卖点节奏与信息组织</small>
+          </button>
+          <button class="skill-feature" type="button" data-skill="video">
+            <span class="skill-feature-icon feature-cut" aria-hidden="true"></span>
+            <strong>动态表达</strong>
+            <small>剪辑节奏与内容包装</small>
+          </button>
         </div>
       </div>
     </section>
