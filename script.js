@@ -35,7 +35,7 @@ const teamValueStatus = document.querySelector("#team-value-status");
 const thankActions = document.querySelectorAll("[data-contact-target]");
 const thankEmailButton = document.querySelector("[data-copy-email]");
 const thankStatus = document.querySelector("#thank-status");
-const preferredProjectOrder = ["chando", "yinlu", "jianlibao", "qingli", "chaoneng", "eightdolls", "otherworks"];
+const preferredProjectOrder = ["chando", "qingli", "chaoneng", "cup", "yinlu", "jianlibao", "eightdolls", "otherworks"];
 
 function applyProjectOrder() {
   const workGrid = document.querySelector(".work-grid");
@@ -167,6 +167,23 @@ const projectData = {
       ["assets/chaoneng-detail-01-deploy.jpg", "详情页第一段 / 产品首屏、调香故事与生活场景"],
       ["assets/chaoneng-detail-02-deploy.jpg", "详情页第二段 / 留香卖点、洗护痛点与净护因子"],
       ["assets/chaoneng-detail-03-deploy.jpg", "详情页第三段 / 护衣护色、绿色认证与使用说明"],
+    ],
+  },
+  cup: {
+    label: "TWINKLE CUP / E-COMMERCE DETAIL PAGE",
+    title: "潮流水杯电商详情页设计",
+    text: "本次详情页紧扣品牌“童趣萌潮、多巴胺快乐、随行打卡”的核心产品定位，适配淘宝、京东、得物等主流电商平台移动端与 PC 端浏览场景。整体以“梦幻冰淇淋乐园”为核心视觉主题，融合多巴胺高饱和度色彩与 C4D 立体微缩场景，聚焦独创立体外观、一杯三饮功能、母婴级纯净材质与潮流出街配饰四大优势，用强烈的视觉吸睛力和情绪共鸣降低年轻消费群体的决策成本，提升店铺转化。",
+    tags: ["电商详情页", "潮流水杯", "多巴胺视觉", "C4D 微缩场景"],
+    details: [
+      ["产品", "梦幻冰淇淋派对潮流水杯"],
+      ["平台", "淘宝 / 京东 / 得物"],
+      ["主题", "梦幻冰淇淋乐园"],
+      ["卖点", "立体外观、一杯三饮、母婴级材质、潮流挂绳"],
+    ],
+    images: [
+      ["assets/cup-detail-01-deploy.jpg", "详情页第一段 / 首屏视觉、梦幻外观与独创内胆"],
+      ["assets/cup-detail-02-deploy.jpg", "详情页第二段 / 随心出街、一键弹盖吸管与安全材质"],
+      ["assets/cup-detail-03-deploy.jpg", "详情页第三段 / 多场景饮用、便携挂绳与潮流集结"],
     ],
   },
   jianlibao: {
@@ -656,6 +673,64 @@ thankEmailButton?.addEventListener("click", async () => {
   } catch (error) {
     copyTextFallback(email);
     setThankStatus(`邮箱已复制：${email}`);
+  }
+});
+
+const protectedAssetSelectors = [
+  "img",
+  "picture",
+  ".case-gallery",
+  ".project-gallery",
+  ".work-visual",
+  ".hero-photo-frame",
+  ".side-mini",
+].join(",");
+
+let protectToastTimer = 0;
+
+function showProtectToast() {
+  let toast = document.querySelector(".asset-protect-toast");
+  if (!toast) {
+    toast = document.createElement("div");
+    toast.className = "asset-protect-toast";
+    toast.setAttribute("role", "status");
+    toast.textContent = "作品仅供在线浏览，请勿下载、拖拽或二次使用。";
+    document.body.appendChild(toast);
+  }
+
+  toast.classList.add("is-visible");
+  window.clearTimeout(protectToastTimer);
+  protectToastTimer = window.setTimeout(() => toast.classList.remove("is-visible"), 1800);
+}
+
+document.querySelectorAll("img").forEach((image) => {
+  image.setAttribute("draggable", "false");
+  image.setAttribute("loading", image.getAttribute("loading") || "lazy");
+});
+
+document.addEventListener("contextmenu", (event) => {
+  if (event.target.closest(protectedAssetSelectors)) {
+    event.preventDefault();
+    showProtectToast();
+  }
+});
+
+document.addEventListener("dragstart", (event) => {
+  if (event.target.closest(protectedAssetSelectors)) {
+    event.preventDefault();
+    showProtectToast();
+  }
+});
+
+document.addEventListener("keydown", (event) => {
+  const key = event.key.toLowerCase();
+  const isSave = (event.ctrlKey || event.metaKey) && key === "s";
+  const isPrint = (event.ctrlKey || event.metaKey) && key === "p";
+  const isDevTools = key === "f12" || ((event.ctrlKey || event.metaKey) && event.shiftKey && ["i", "j", "c"].includes(key));
+
+  if (isSave || isPrint || isDevTools) {
+    event.preventDefault();
+    showProtectToast();
   }
 });
 
