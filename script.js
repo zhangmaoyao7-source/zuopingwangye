@@ -241,13 +241,8 @@ const projectData = {
     label: "OTHER WORKS / GROWING COLLECTION",
     title: "其它作品合集",
     text: "这里作为后续作品的集合入口，用来收纳还没有单独拆成重点项目的品牌文创、页面视觉、海报物料、IP 小稿和阶段性练习。每组作品会按主题归类，方便持续补充和查看。",
-    tags: ["其它作品", "品牌文创", "持续补充", "分组查看"],
-    details: [
-      ["定位", "补充作品集合入口"],
-      ["当前分类", "花王碧柔文创周边 / 作品集网页界面"],
-      ["更新方式", "后续上传后继续按主题追加"],
-      ["展示", "按不同作品分组查看"],
-    ],
+    tags: [],
+    details: [],
     collections: [
       {
         category: "品牌文创周边",
@@ -488,15 +483,19 @@ function openProject(projectId) {
   projectModalLabel.textContent = project.label;
   projectModalTitle.textContent = project.title;
   projectModalText.textContent = project.text;
+  const projectTags = project.tags || [];
   projectModalTags.replaceChildren();
-  project.tags.forEach((tag) => {
+  projectModalTags.hidden = projectTags.length === 0;
+  projectTags.forEach((tag) => {
     const tagNode = document.createElement("span");
     tagNode.textContent = tag;
     projectModalTags.appendChild(tagNode);
   });
 
+  const projectDetails = project.details || [];
   projectModalDetails.replaceChildren();
-  project.details.forEach(([label, value]) => {
+  projectModalDetails.hidden = projectDetails.length === 0;
+  projectDetails.forEach(([label, value]) => {
     const detail = document.createElement("div");
     const labelNode = document.createElement("span");
     const valueNode = document.createElement("strong");
@@ -668,11 +667,11 @@ thankEmailButton?.addEventListener("click", async () => {
       copyTextFallback(email);
     }
     thankEmailButton.classList.add("is-active");
-    setThankStatus(`邮箱已复制：${email}`);
+    setThankStatus(`联系方式已复制：${email}`);
     window.setTimeout(() => thankEmailButton.classList.remove("is-active"), 900);
   } catch (error) {
     copyTextFallback(email);
-    setThankStatus(`邮箱已复制：${email}`);
+    setThankStatus(`联系方式已复制：${email}`);
   }
 });
 

@@ -443,8 +443,7 @@ h1 span {
   grid-template-areas:
     "photo"
     "tools"
-    "strip"
-    "dash";
+    "strip";
   gap: 18px;
   width: min(1180px, 100%);
   min-height: auto;
@@ -560,8 +559,7 @@ h1 span {
 .tool-procreate::before { background: linear-gradient(135deg, #111827, #ffe56d); }
 .tool-midjourney::before { background: linear-gradient(135deg, #171121, #ff74c8 45%, #ffe56d); }
 
-.screen-strip,
-.mini-dashboard {
+.screen-strip {
   align-self: end;
   border-radius: 26px;
   background: rgba(255, 255, 255, 0.08);
@@ -585,21 +583,6 @@ h1 span {
   color: #f0eaff;
   font-size: 16px;
   font-weight: 900;
-}
-
-.mini-dashboard {
-  grid-area: dash;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 14px;
-  margin-top: 0;
-  padding: 16px;
-}
-
-.mini-dashboard span {
-  height: 54px;
-  border-radius: 16px;
-  background: linear-gradient(135deg, rgba(138, 92, 255, 0.88), rgba(255, 116, 200, 0.7));
 }
 
 .orbital {
@@ -3255,6 +3238,10 @@ h1 span {
   align-self: center;
 }
 
+.team-value-copy {
+  transform: translateY(-22px);
+}
+
 .team-value-copy > span {
   color: var(--mint);
   font-size: 12px;
@@ -4299,6 +4286,11 @@ body.modal-open {
   margin-top: 22px;
 }
 
+.project-tags[hidden],
+.project-detail-grid[hidden] {
+  display: none !important;
+}
+
 .project-tags span {
   padding: 8px 12px;
   border: 1px solid rgba(84, 244, 208, 0.28);
@@ -4658,8 +4650,7 @@ body.modal-open {
     grid-template-areas:
       "photo"
       "tools"
-      "strip"
-      "dash";
+      "strip";
     width: min(640px, 100%);
     min-height: auto;
   }
@@ -4969,10 +4960,6 @@ body.modal-open {
   .screen-strip span {
     min-height: 38px;
     font-size: 13px;
-  }
-
-  .mini-dashboard span {
-    height: 42px;
   }
 
   .work-grid {
